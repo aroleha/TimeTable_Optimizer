@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: timetable-optimizer
+    env: node
+    plan: free
+    buildCommand: npm install && cd client && npm install && npm run build && cd ..
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DB_PATH
+        value: ./database/timetable.db
+    disk:
+      name: timetable-data
+      mountPath: /opt/render/project/src/database
+      sizeGB: 1
